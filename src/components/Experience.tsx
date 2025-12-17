@@ -1,14 +1,47 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Reveal from "./Reveal";
+import { useRef } from "react";
 
+// Expanded experiences array with more projects
 const experiences = [
   {
     company: "SaaS Innova Pvt. Ltd.",
     position: "Software Engineer",
     duration: "February 2023 - April 2025 (2 years 3 months)",
     location: "Surat, Gujarat, India",
-    description: "Developing and maintaining production-ready applications, APIs, and database-driven systems."
-  }
+    description:
+      "Developing and maintaining production-ready applications, APIs, and database-driven systems.",
+    projects: [
+      {
+        name: "Allbry",
+        description:
+          "A user management platform aimed at providing seamless onboarding, engagement, and user data management.",
+        role: "Lead Developer",
+        technologies: ["React", "Node.js", "MongoDB"],
+      },
+      {
+        name: "Avisita",
+        description:
+          "An appointment scheduling and booking system for healthcare providers, integrated with real-time notifications.",
+        role: "Backend Developer",
+        technologies: ["Express", "PostgreSQL", "Socket.io"],
+      },
+      {
+        name: "Red & White ERP",
+        description:
+          "An enterprise resource planning system designed for inventory management, customer relationship management, and financial accounting.",
+        role: "Full-stack Developer",
+        technologies: ["React", "Redux", "MySQL"],
+      },
+      {
+        name: "PMS (Property Management System)",
+        description:
+          "A comprehensive property management system to handle reservations, tenant details, and maintenance requests.",
+        role: "Frontend Developer",
+        technologies: ["React", "TypeScript", "TailwindCSS"],
+      },
+    ],
+  },
 ];
 
 const containerVariants = {
@@ -28,42 +61,91 @@ const itemVariants = {
 
 export default function Experience() {
   return (
-    <div className="mx-auto max-w-5xl px-4 py-16">
-      <Reveal>
-        <h2 className="text-2xl font-semibold tracking-tight md:text-3xl">
-          Experience
-        </h2>
-        <p className="mt-2 text-muted-foreground">My professional journey.</p>
-      </Reveal>
+    <div className="min-h-screen bg-gray-50 px-4 py-20">
+      <div className="max-w-6xl mx-auto">
+        <Reveal>
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+              Professional Experience
+            </h2>
+            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              My journey in software development and key projects I've worked on
+            </p>
+          </div>
+        </Reveal>
 
-      <motion.div
-        className="mt-8 space-y-8"
-        variants={containerVariants}
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.3 }}
-      >
-        {experiences.map((exp, index) => (
-          <motion.div
-            key={exp.company}
-            variants={itemVariants}
-            className="relative pl-8 before:absolute before:left-0 before:top-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-primary before:to-primary/50"
-          >
-            <div className="absolute -left-3 top-0 h-6 w-6 rounded-full bg-primary border-4 border-background"></div>
-            <div className="rounded-2xl border border-border/60 bg-accent/20 p-6">
-              <div className="flex flex-col gap-2 md:flex-row md:items-center md:justify-between">
-                <div>
-                  <h3 className="text-lg font-semibold">{exp.position}</h3>
-                  <p className="text-primary font-medium">{exp.company}</p>
-                  <p className="text-sm text-muted-foreground">{exp.location}</p>
+        <motion.div
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.3 }}
+          className="relative"
+        >
+          {/* Timeline line */}
+          <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-600"></div>
+
+          {experiences.map((exp, index) => (
+            <motion.div
+              key={exp.company}
+              initial={{ opacity: 0, x: -50 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8, delay: index * 0.2 }}
+              viewport={{ once: true }}
+              className="relative mb-12 ml-20"
+            >
+              {/* Timeline dot */}
+              <div className="absolute -left-16 top-6 w-4 h-4 bg-blue-500 rounded-full border-4 border-white shadow-lg"></div>
+
+              <div className="bg-white rounded-2xl shadow-lg p-8 border border-gray-100 hover:shadow-xl transition-shadow duration-300">
+                <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-4">
+                  <div>
+                    <h3 className="text-2xl font-bold text-gray-900">{exp.position}</h3>
+                    <p className="text-blue-600 font-semibold text-lg">{exp.company}</p>
+                    <p className="text-gray-500">{exp.location}</p>
+                  </div>
+                  <div className="mt-2 lg:mt-0 lg:text-right">
+                    <span className="inline-block px-3 py-1 bg-blue-100 text-blue-800 text-sm font-medium rounded-full">
+                      {exp.duration}
+                    </span>
+                  </div>
                 </div>
-                <p className="text-sm text-muted-foreground">{exp.duration}</p>
+
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  {exp.description}
+                </p>
+
+                {/* Projects */}
+                <div className="grid gap-4 md:grid-cols-2">
+                  {exp.projects.map((project, projectIndex) => (
+                    <motion.div
+                      key={project.name}
+                      initial={{ opacity: 0, y: 20 }}
+                      whileInView={{ opacity: 1, y: 0 }}
+                      transition={{ duration: 0.6, delay: projectIndex * 0.1 }}
+                      viewport={{ once: true }}
+                      className="bg-gray-50 rounded-xl p-4 border border-gray-200"
+                    >
+                      <h4 className="font-semibold text-gray-900 mb-2">{project.name}</h4>
+                      <p className="text-sm text-gray-600 mb-3">{project.description}</p>
+                      <div className="flex flex-wrap gap-1 mb-2">
+                        {project.technologies.map((tech) => (
+                          <span
+                            key={tech}
+                            className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full"
+                          >
+                            {tech}
+                          </span>
+                        ))}
+                      </div>
+                      <p className="text-xs text-gray-500 font-medium">{project.role}</p>
+                    </motion.div>
+                  ))}
+                </div>
               </div>
-              <p className="mt-4 text-muted-foreground">{exp.description}</p>
-            </div>
-          </motion.div>
-        ))}
-      </motion.div>
+            </motion.div>
+          ))}
+        </motion.div>
+      </div>
     </div>
   );
 }

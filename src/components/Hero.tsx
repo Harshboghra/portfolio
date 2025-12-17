@@ -1,79 +1,130 @@
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 
 export default function Hero() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"]
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [0, -200]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
   return (
-    <div className="relative mx-auto max-w-5xl px-4 py-16 md:py-24">
-      <div className="relative overflow-hidden rounded-3xl border border-white/20 bg-white/5 backdrop-blur-md p-8 md:p-12 shadow-2xl">
-        {/* subtle animated glow */}
+    <motion.div
+      ref={containerRef}
+      style={{ y, opacity }}
+      className="relative min-h-screen flex items-center justify-center px-4 overflow-hidden"
+    >
+      <div className="max-w-6xl mx-auto text-center">
+        {/* Status badge */}
         <motion.div
-          aria-hidden
-          className="pointer-events-none absolute -top-24 right-0 h-64 w-64 rounded-full bg-primary/15 blur-3xl"
-          animate={{ y: [0, 18, 0], x: [0, -10, 0] }}
-          transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-        />
-
-        <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
+          initial={{ opacity: 0, y: -20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="text-sm text-muted-foreground"
+          viewport={{ once: true }}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/20 text-sm text-white/80 mb-8"
         >
-          Full Stack Developer | Surat, Gujarat, India
-        </motion.p>
+          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+          Available for freelance work
+        </motion.div>
 
+        {/* Main heading */}
         <motion.h1
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.05 }}
-          className="mt-3 text-3xl font-semibold tracking-tight md:text-5xl"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
+          viewport={{ once: true }}
+          className="text-4xl md:text-7xl font-bold text-white mb-6 leading-tight"
         >
-          Building scalable web apps with{" "}
-          <span className="text-primary">React</span>,{" "}
-          <span className="text-primary">NestJS</span>,{" "}
-          <span className="text-primary">PostgreSQL</span> &{" "}
-          <span className="text-primary">GraphQL</span>.
+          Full Stack
+          <span className="block bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500 bg-clip-text text-transparent">
+            Developer
+          </span>
         </motion.h1>
 
+        {/* Subtitle */}
         <motion.p
-          initial={{ opacity: 0, y: 18 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.12 }}
-          className="mt-4 max-w-2xl text-muted-foreground"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.4 }}
+          viewport={{ once: true }}
+          className="text-xl md:text-2xl text-white/80 mb-8 max-w-3xl mx-auto"
         >
-          2+ years of experience as Software Engineer at SaaS Innova Pvt. Ltd.
-          building production-ready applications, secure APIs, and database-driven
-          systems. Currently pursuing BTech in Computer Science at Indus University.
-          Open to freelance and project-based web development work.
+          Building scalable web applications with modern technologies
         </motion.p>
 
+        {/* Tech stack */}
         <motion.div
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.18 }}
-          className="mt-8 flex flex-wrap gap-3"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          viewport={{ once: true }}
+          className="flex flex-wrap justify-center gap-3 mb-12"
         >
-          <a
+          {["React", "NestJS", "PostgreSQL", "GraphQL", "TypeScript"].map((tech, index) => (
+            <motion.span
+              key={tech}
+              initial={{ opacity: 0, scale: 0.8 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+              viewport={{ once: true }}
+              whileHover={{ scale: 1.1, backgroundColor: "rgba(255,255,255,0.2)" }}
+              className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full border border-white/20 text-white/90 text-sm font-medium transition-colors cursor-pointer"
+            >
+              {tech}
+            </motion.span>
+          ))}
+        </motion.div>
+
+        {/* CTA Buttons */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 1.2 }}
+          viewport={{ once: true }}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center"
+        >
+          <motion.a
             href="#projects"
-            className="rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition hover:opacity-90"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full text-white font-semibold text-lg shadow-lg hover:shadow-xl transition-all duration-300"
           >
-            View Projects
-          </a>
-          <a
-            href="https://hospital-system-front-production.up.railway.app"
-            target="_blank"
-            rel="noreferrer"
-            className="rounded-xl border border-border/60 px-4 py-2 text-sm font-medium transition hover:bg-accent"
-          >
-            Live Demo
-          </a>
-          <a
+            View My Work
+          </motion.a>
+          <motion.a
             href="#contact"
-            className="rounded-xl border border-border/60 px-4 py-2 text-sm font-medium transition hover:bg-accent"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="px-8 py-4 border-2 border-white/30 rounded-full text-white font-semibold text-lg hover:bg-white/10 transition-all duration-300"
           >
-            Contact
-          </a>
+            Get In Touch
+          </motion.a>
+        </motion.div>
+
+        {/* Scroll indicator */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 1, delay: 1.5 }}
+          viewport={{ once: true }}
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+        >
+          <motion.div
+            animate={{ y: [0, 10, 0] }}
+            transition={{ duration: 2, repeat: Infinity }}
+            className="w-6 h-10 border-2 border-white/30 rounded-full flex justify-center"
+          >
+            <motion.div
+              animate={{ y: [0, 12, 0] }}
+              transition={{ duration: 2, repeat: Infinity }}
+              className="w-1 h-3 bg-white/60 rounded-full mt-2"
+            ></motion.div>
+          </motion.div>
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
