@@ -1,6 +1,17 @@
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 
-const projects = [
+type Project = {
+  title: string;
+  desc: string;
+  tech: string[];
+  live?: string;
+  schema?: string;
+  github?: string;
+  icon: string;
+  gradient: string;
+};
+
+const projects: Project[] = [
   {
     title: "Hospital Management System",
     desc: "Role-based platform for Admin/Doctor/Patient with appointments, dashboards, PDF prescriptions and cloud uploads.",
@@ -8,124 +19,172 @@ const projects = [
     live: "https://hospital-system-front-production.up.railway.app",
     schema:
       "https://dbdiagram.io/d/hospital-management-system-6940fa08e877c63074fb1b3e",
+    github: "https://github.com/Harshboghra/portfolio",
+    icon: "🏥",
+    gradient: "from-blue-400 via-purple-500 to-pink-500",
+  },
+  {
+    title: "Portfolio Website",
+    desc: "Modern portfolio with animated sections, smooth reveal transitions, and responsive UI crafted with Tailwind + Framer Motion.",
+    tech: ["React", "TypeScript", "Tailwind", "Framer Motion"],
+    live: "#home",
+    github: "https://github.com/Harshboghra/portfolio",
+    icon: "✨",
+    gradient: "from-cyan-400 via-blue-500 to-purple-600",
   },
 ];
 
-export default function Projects() {
+function ProjectCard({ project, reduceMotion }: { project: Project; reduceMotion: boolean }) {
   return (
-    <div className="bg-white px-6 py-16">
-      <div className="max-w-6xl mx-auto">
-        {/* Section Title */}
-        <div className="md:text-left text-center mb-12">
-          <div className="h-1 w-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full md:mx-0 mx-auto mb-4"></div>
-          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Featured Projects
-          </h2>
-          <p className="text-xl text-gray-600 max-w-2xl">
-            A showcase of my recent work and technical expertise
-          </p>
+    <motion.article
+      initial={reduceMotion ? false : { opacity: 0, y: 24 }}
+      whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.25 }}
+      transition={{ duration: 0.7, ease: "easeOut" }}
+      whileHover={reduceMotion ? undefined : { y: -10 }}
+      className="group relative overflow-hidden rounded-3xl border border-white/15 bg-white/10 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.25)]"
+    >
+      {/* gradient glow */}
+      <div
+        className={
+          "pointer-events-none absolute -inset-0.5 opacity-30 blur-2xl bg-gradient-to-r " +
+          project.gradient
+        }
+      />
+
+      {/* top media */}
+      <div className="relative h-44 sm:h-48">
+        <div className={"absolute inset-0 bg-gradient-to-br " + project.gradient + " opacity-80"} />
+        <div className="absolute inset-0 bg-black/30" />
+
+        {/* subtle shine */}
+        <motion.div
+          aria-hidden
+          className="absolute -left-1/2 top-0 h-full w-1/2 bg-gradient-to-r from-white/0 via-white/25 to-white/0 rotate-12"
+          initial={{ x: "-30%", opacity: 0 }}
+          whileHover={reduceMotion ? undefined : { x: "220%", opacity: 0.6 }}
+          transition={{ duration: 1.0, ease: "easeOut" }}
+        />
+
+        <div className="relative h-full p-6 flex items-end justify-between">
+          <div>
+            <p className="text-white/80 text-xs font-medium tracking-widest uppercase">
+              Featured Project
+            </p>
+            <h3 className="text-white text-2xl font-bold leading-tight">
+              {project.title}
+            </h3>
+          </div>
+          <div className="text-5xl opacity-90 drop-shadow">{project.icon}</div>
+        </div>
+      </div>
+
+      {/* body */}
+      <div className="relative p-6">
+        <p className="text-white/75 leading-relaxed mb-5">{project.desc}</p>
+
+        <div className="flex flex-wrap gap-2 mb-6">
+          {project.tech.map((t) => (
+            <span
+              key={t}
+              className="px-3 py-1 rounded-full text-sm text-white/80 border border-white/15 bg-white/5 hover:bg-white/10 transition-colors"
+            >
+              {t}
+            </span>
+          ))}
         </div>
 
-        {/* Project Grid */}
-        <motion.div
-          className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: { staggerChildren: 0.2 },
-            },
-          }}
-        >
-          {projects.map((p, index) => (
-            <motion.div
-              key={p.title}
-              variants={{
-                hidden: { opacity: 0, y: 50 },
-                visible: { opacity: 1, y: 0 },
-              }}
-              whileHover={{ y: -10 }}
-              transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100"
+        <div className="flex flex-wrap gap-3">
+          {project.live && (
+            <motion.a
+              href={project.live}
+              target={project.live.startsWith("http") ? "_blank" : undefined}
+              rel={project.live.startsWith("http") ? "noreferrer" : undefined}
+              whileHover={reduceMotion ? undefined : { scale: 1.03 }}
+              whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-white font-semibold bg-gradient-to-r from-blue-500 to-purple-600 shadow-lg hover:shadow-xl transition-shadow focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
             >
-              {/* Project Image Placeholder */}
-              <motion.div
-                className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center"
-                initial={{ opacity: 1 }}
-                animate={{ opacity: 1 }} // Make sure opacity stays at 1
-                transition={{
-                  duration: 1,
-                  ease: "easeOut",
-                }}
-              >
-                <div className="text-white text-6xl opacity-20">
-                  {p.title.includes("Hospital") ? "🏥" : "💼"}
-                </div>
-              </motion.div>
+              Live Demo
+              <span aria-hidden>→</span>
+            </motion.a>
+          )}
 
-              <div className="p-6">
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
-                  {p.title}
-                </h3>
-                <p className="text-gray-600 mb-4 leading-relaxed">{p.desc}</p>
+          {project.github && (
+            <motion.a
+              href={project.github}
+              target="_blank"
+              rel="noreferrer"
+              whileHover={reduceMotion ? undefined : { scale: 1.03 }}
+              whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-white/90 font-semibold border border-white/20 bg-white/5 hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+            >
+              Code
+              <span aria-hidden>↗</span>
+            </motion.a>
+          )}
 
-                {/* Tech stack */}
-                <motion.div
-                  className="flex flex-wrap gap-2 mb-6"
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={{
-                    hidden: {},
-                    visible: {
-                      transition: { staggerChildren: 0.1 },
-                    },
-                  }}
-                >
-                  {p.tech.map((t) => (
-                    <motion.span
-                      key={t}
-                      variants={{
-                        hidden: { opacity: 0, scale: 0.8 },
-                        visible: { opacity: 1, scale: 1 },
-                      }}
-                      className="px-3 py-1 bg-gray-100 text-gray-700 text-sm rounded-full hover:bg-blue-100 hover:text-blue-700 transition-colors"
-                    >
-                      {t}
-                    </motion.span>
-                  ))}
-                </motion.div>
+          {project.schema && (
+            <motion.a
+              href={project.schema}
+              target="_blank"
+              rel="noreferrer"
+              whileHover={reduceMotion ? undefined : { scale: 1.03 }}
+              whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-full text-white/90 font-semibold border border-white/20 bg-white/5 hover:bg-white/10 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
+            >
+              Schema
+              <span aria-hidden>↗</span>
+            </motion.a>
+          )}
+        </div>
+      </div>
 
-                {/* Action buttons */}
-                <div className="flex gap-3">
-                  <motion.a
-                    href={p.live}
-                    target="_blank"
-                    rel="noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="flex-1 text-center px-4 py-2 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-medium rounded-lg hover:shadow-lg transition-all duration-300"
-                  >
-                    Live Demo
-                  </motion.a>
-                  <motion.a
-                    href={p.schema}
-                    target="_blank"
-                    rel="noreferrer"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="px-4 py-2 border border-gray-300 text-gray-700 font-medium rounded-lg hover:bg-gray-50 transition-all duration-300"
-                  >
-                    Schema
-                  </motion.a>
-                </div>
-              </div>
-            </motion.div>
-          ))}
+      {/* border highlight */}
+      <div className="pointer-events-none absolute inset-0 rounded-3xl ring-1 ring-white/10 group-hover:ring-white/20 transition" />
+    </motion.article>
+  );
+}
+
+export default function Projects() {
+  const reduceMotion = useReducedMotion();
+
+  return (
+      <div className="relative px-4 sm:px-6">
+        {/* soft divider glow */}
+        <div className="pointer-events-none absolute left-0 right-0 -top-10 h-24 bg-gradient-to-b from-white/0 via-white/5 to-white/0" />
+      {/* header */}
+      <div className="max-w-6xl mx-auto">
+        <motion.div
+          initial={reduceMotion ? false : { opacity: 0, y: 20 }}
+          whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
+          className="text-center md:text-left mb-10"
+        >
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/10 backdrop-blur-sm border border-white/15 text-sm text-white/80 mb-6">
+            <span className="w-2 h-2 rounded-full bg-gradient-to-r from-blue-400 to-purple-500" />
+            Selected Work
+          </div>
+
+          <h2 className="text-4xl md:text-6xl font-extrabold text-white leading-tight">
+            Projects
+            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-500 to-pink-500">
+              Built with care
+            </span>
+          </h2>
+
+          <p className="mt-5 text-lg md:text-xl text-white/70 max-w-3xl">
+            A curated selection of projects focused on performance, scalable architecture,
+            and delightful user experience.
+          </p>
         </motion.div>
+
+        {/* grid */}
+        <div className="grid gap-8 md:grid-cols-2">
+          {projects.map((project) => (
+            <ProjectCard key={project.title} project={project} reduceMotion={!!reduceMotion} />
+          ))}
+        </div>
       </div>
     </div>
   );
