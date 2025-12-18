@@ -9,6 +9,7 @@ import Education from "./components/Education";
 import Skills from "./components/Skills";
 import Contact from "./components/Contact";
 import Section from "./components/Section";
+import Footer from "./components/Footer";
 
 export default function App() {
   return (
@@ -107,6 +108,8 @@ export default function App() {
               <Contact />
             </Section>
           </section>
+
+          <Footer />
         </div>
       </main>
 

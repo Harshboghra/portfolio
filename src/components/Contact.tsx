@@ -285,61 +285,7 @@ export default function Contact() {
         {/* CTA section */}
         <CTASection reduceMotion={!!reduceMotion} />
 
-        {/* footer */}
-        <motion.footer
-          initial={reduceMotion ? false : { opacity: 0 }}
-          whileInView={reduceMotion ? undefined : { opacity: 1 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          viewport={{ once: true }}
-          className="text-center mt-16 pt-8 border-t border-white/10"
-        >
-          <motion.div
-            initial={reduceMotion ? false : { y: 20, opacity: 0 }}
-            whileInView={reduceMotion ? undefined : { y: 0, opacity: 1 }}
-            transition={{ duration: 0.8, delay: 0.6 }}
-            className="flex flex-col items-center gap-4"
-          >
-            <div className="flex items-center gap-2 text-white/60 text-sm">
-              <span>© 2025 Harsh Boghara</span>
-              <span className="text-white/30">•</span>
-              <span>Built with</span>
-              <motion.span
-                animate={reduceMotion ? undefined : { scale: [1, 1.2, 1] }}
-                transition={{ duration: 2, repeat: Infinity }}
-                className="text-red-400"
-              >
-                ❤️
-              </motion.span>
-              <span>using React, TypeScript & Tailwind CSS</span>
-            </div>
-
-            <motion.div
-              className="flex gap-6"
-              initial={reduceMotion ? false : { opacity: 0, y: 10 }}
-              whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.7 }}
-            >
-              {["🎨", "⚡", "🚀"].map((emoji, index) => (
-                <motion.span
-                  key={emoji}
-                  className="text-2xl"
-                  animate={reduceMotion ? undefined : {
-                    y: [0, -10, 0],
-                    rotate: [0, 10, -10, 0]
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    delay: index * 0.3,
-                    ease: "easeInOut"
-                  }}
-                >
-                  {emoji}
-                </motion.span>
-              ))}
-            </motion.div>
-          </motion.div>
-        </motion.footer>
+        {/* Footer will be handled separately */}
       </div>
     </div>
   );
