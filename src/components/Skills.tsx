@@ -31,14 +31,15 @@ const skillCategories = [
 
 export default function Skills() {
   return (
-    <div className="min-h-screen bg-white px-4 py-20">
+    <div className="bg-white px-6 py-16">
       <div className="max-w-6xl mx-auto">
         <Reveal>
-          <div className="text-center mb-16">
+          <div className="md:text-left text-center mb-12">
+            <div className="h-1 w-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full md:mx-0 mx-auto mb-4"></div>
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Technical Skills
             </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+            <p className="text-xl text-gray-600 max-w-2xl">
               Technologies and tools I use to build modern web applications
             </p>
           </div>

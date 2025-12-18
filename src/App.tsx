@@ -14,9 +14,6 @@ export default function App() {
   return (
     <motion.div
       className="relative min-h-screen overflow-hidden bg-background text-foreground"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 1.5, ease: "easeInOut" }} // Main fade-in for the page
     >
       <AnimatedBackground />
       <Navbar />

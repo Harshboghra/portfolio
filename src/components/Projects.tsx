@@ -1,6 +1,4 @@
-import { motion, useScroll, useTransform } from "framer-motion";
-import Reveal from "./Reveal";
-import { useRef } from "react";
+import { motion } from "framer-motion";
 
 const projects = [
   {
@@ -15,19 +13,20 @@ const projects = [
 
 export default function Projects() {
   return (
-    <div className="min-h-screen bg-white px-4 py-20">
+    <div className="bg-white px-6 py-16">
       <div className="max-w-6xl mx-auto">
-        <Reveal>
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-              Featured Projects
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              A showcase of my recent work and technical expertise
-            </p>
-          </div>
-        </Reveal>
+        {/* Section Title */}
+        <div className="md:text-left text-center mb-12">
+          <div className="h-1 w-16 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full md:mx-0 mx-auto mb-4"></div>
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            Featured Projects
+          </h2>
+          <p className="text-xl text-gray-600 max-w-2xl">
+            A showcase of my recent work and technical expertise
+          </p>
+        </div>
 
+        {/* Project Grid */}
         <motion.div
           className="grid gap-8 md:grid-cols-2 lg:grid-cols-3"
           initial="hidden"
@@ -37,7 +36,7 @@ export default function Projects() {
             hidden: { opacity: 0 },
             visible: {
               opacity: 1,
-              transition: { staggerChildren: 0.2 }
+              transition: { staggerChildren: 0.2 },
             },
           }}
         >
@@ -46,27 +45,34 @@ export default function Projects() {
               key={p.title}
               variants={{
                 hidden: { opacity: 0, y: 50 },
-                visible: { opacity: 1, y: 0 }
+                visible: { opacity: 1, y: 0 },
               }}
               whileHover={{ y: -10 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100"
             >
               {/* Project Image Placeholder */}
-              <div className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
+              <motion.div
+                className="h-48 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center"
+                initial={{ opacity: 1 }}
+                animate={{ opacity: 1 }} // Make sure opacity stays at 1
+                transition={{
+                  duration: 1,
+                  ease: "easeOut",
+                }}
+              >
                 <div className="text-white text-6xl opacity-20">
-                  {p.title.includes('Hospital') ? '🏥' : '💼'}
+                  {p.title.includes("Hospital") ? "🏥" : "💼"}
                 </div>
-              </div>
+              </motion.div>
 
               <div className="p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-blue-600 transition-colors">
                   {p.title}
                 </h3>
-                <p className="text-gray-600 mb-4 leading-relaxed">
-                  {p.desc}
-                </p>
+                <p className="text-gray-600 mb-4 leading-relaxed">{p.desc}</p>
 
+                {/* Tech stack */}
                 <motion.div
                   className="flex flex-wrap gap-2 mb-6"
                   initial="hidden"
@@ -93,6 +99,7 @@ export default function Projects() {
                   ))}
                 </motion.div>
 
+                {/* Action buttons */}
                 <div className="flex gap-3">
                   <motion.a
                     href={p.live}
