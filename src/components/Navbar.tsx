@@ -33,7 +33,7 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
           >
-            Harsh
+            Harsh Boghara
           </motion.span>
           <motion.span
             initial={{ opacity: 0 }}

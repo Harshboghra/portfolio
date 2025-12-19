@@ -24,31 +24,34 @@ const experiences: Experience[] = [
     position: "Software Engineer",
     duration: "February 2023 - April 2025",
     location: "Surat, Gujarat, India",
-    description: "Developing and maintaining production-ready applications, APIs, and database-driven systems with focus on scalability and performance.",
+    description:
+      "Developing and maintaining production-ready applications, APIs, and database-driven systems with focus on scalability and performance.",
     projects: [
       {
         name: "Allbry",
-        description: "User management platform with seamless onboarding and data analytics.",
-        role: "Lead Developer",
-        technologies: ["React", "Node.js", "MongoDB"],
-        icon: "👥",
-        gradient: "from-blue-400 to-cyan-500"
+        description:
+          "Digital student-health and school wellness platform enabling students to get support via chat, video calls, messaging, and booking sessions with counselors or support staff.",
+        role: "Full-stack Developer",
+        technologies: ["React", "Node.js", "Express", "Socket.io"],
+        icon: "🧠",
+        gradient: "from-blue-400 to-cyan-500",
       },
       {
         name: "Avisita",
-        description: "Healthcare appointment scheduling with real-time notifications.",
-        role: "Backend Developer", 
-        technologies: ["Express", "PostgreSQL", "Socket.io"],
-        icon: "🏥",
-        gradient: "from-purple-400 to-pink-500"
+        description:
+          "Leading provider of project accommodation and housing solutions with a smart booking platform and personalized support.",
+        role: "Full-stack Developer",
+        technologies: ["PostgreSQL", "GraphQL Subscriptions", "Redis"],
+        icon: "🏨",
+        gradient: "from-purple-400 to-pink-500",
       },
       {
         name: "Red & White ERP",
         description: "Enterprise resource planning for inventory and CRM.",
         role: "Full-stack Developer",
-        technologies: ["React", "Redux", "MySQL"],
+        technologies: ["React", "Redux", "Nest JS"],
         icon: "📊",
-        gradient: "from-green-400 to-emerald-500"
+        gradient: "from-green-400 to-emerald-500",
       },
       {
         name: "Property Management System",
@@ -56,13 +59,19 @@ const experiences: Experience[] = [
         role: "Frontend Developer",
         technologies: ["React", "TypeScript", "TailwindCSS"],
         icon: "🏢",
-        gradient: "from-orange-400 to-red-500"
-      }
-    ]
-  }
+        gradient: "from-orange-400 to-red-500",
+      },
+    ],
+  },
 ];
 
-function ProjectCard({ project, reduceMotion }: { project: Project; reduceMotion: boolean }) {
+function ProjectCard({
+  project,
+  reduceMotion,
+}: {
+  project: Project;
+  reduceMotion: boolean;
+}) {
   return (
     <motion.div
       initial={reduceMotion ? false : { opacity: 0, y: 20 }}
@@ -74,16 +83,25 @@ function ProjectCard({ project, reduceMotion }: { project: Project; reduceMotion
     >
       {/* gradient glow */}
       <div
-        className={"pointer-events-none absolute -inset-0.5 opacity-20 blur-xl bg-gradient-to-r " + project.gradient}
+        className={
+          "pointer-events-none absolute -inset-0.5 opacity-20 blur-xl bg-gradient-to-r " +
+          project.gradient
+        }
       />
 
       <div className="relative p-6">
         <div className="flex items-start gap-4 mb-4">
           <div className="text-3xl">{project.icon}</div>
           <div className="flex-1">
-            <h4 className="text-white font-bold text-lg mb-1">{project.name}</h4>
-            <p className="text-white/70 text-sm mb-3 leading-relaxed">{project.description}</p>
-            <p className="text-white/60 text-xs font-medium mb-4">Role: {project.role}</p>
+            <h4 className="text-white font-bold text-lg mb-1">
+              {project.name}
+            </h4>
+            <p className="text-white/70 text-sm mb-3 leading-relaxed">
+              {project.description}
+            </p>
+            <p className="text-white/60 text-xs font-medium mb-4">
+              Role: {project.role}
+            </p>
           </div>
         </div>
 
@@ -134,8 +152,8 @@ export default function Experience() {
           </h2>
 
           <p className="mt-5 text-lg md:text-xl text-white/70 max-w-3xl">
-            Professional journey building scalable applications and leading development teams
-            in fast-paced environments.
+            Professional journey building scalable applications and leading
+            development teams in fast-paced environments.
           </p>
         </motion.div>
 
@@ -164,7 +182,11 @@ export default function Experience() {
                 className="absolute left-6 top-8 w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full border-4 border-white/10 md:left-1/2 md:transform md:-translate-x-2"
                 initial={reduceMotion ? false : { scale: 0 }}
                 whileInView={reduceMotion ? undefined : { scale: 1 }}
-                transition={{ delay: index * 0.3, type: "spring", stiffness: 200 }}
+                transition={{
+                  delay: index * 0.3,
+                  type: "spring",
+                  stiffness: 200,
+                }}
               >
                 <div className="absolute inset-0 rounded-full bg-purple-500 animate-ping opacity-30" />
               </motion.div>
@@ -174,7 +196,9 @@ export default function Experience() {
                 <div className={index % 2 === 1 ? "md:order-2" : ""}>
                   <motion.div
                     initial={reduceMotion ? false : { opacity: 0, y: 30 }}
-                    whileInView={reduceMotion ? undefined : { opacity: 1, y: 0 }}
+                    whileInView={
+                      reduceMotion ? undefined : { opacity: 1, y: 0 }
+                    }
                     transition={{ duration: 0.6, delay: index * 0.3 + 0.2 }}
                     viewport={{ once: true }}
                     whileHover={reduceMotion ? undefined : { y: -5 }}
@@ -186,9 +210,15 @@ export default function Experience() {
                     <div className="relative p-8">
                       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6">
                         <div>
-                          <h3 className="text-2xl font-bold text-white mb-2">{exp.position}</h3>
-                          <p className="text-white/90 font-semibold text-lg">{exp.company}</p>
-                          <p className="text-white/60 text-sm">{exp.location}</p>
+                          <h3 className="text-2xl font-bold text-white mb-2">
+                            {exp.position}
+                          </h3>
+                          <p className="text-white/90 font-semibold text-lg">
+                            {exp.company}
+                          </p>
+                          <p className="text-white/60 text-sm">
+                            {exp.location}
+                          </p>
                         </div>
                         <div className="mt-4 sm:mt-0">
                           <span className="inline-flex items-center px-4 py-2 rounded-full bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-white/15 text-white/90 text-sm font-medium">
@@ -215,10 +245,16 @@ export default function Experience() {
                 viewport={{ once: true }}
                 className="mt-8"
               >
-                <h4 className="text-white/80 font-semibold mb-4 px-16 md:px-0">Key Projects</h4>
+                <h4 className="text-white/80 font-semibold mb-4 px-16 md:px-0">
+                  Key Projects
+                </h4>
                 <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4 px-16 md:px-0">
                   {exp.projects.map((project) => (
-                    <ProjectCard key={project.name} project={project} reduceMotion={!!reduceMotion} />
+                    <ProjectCard
+                      key={project.name}
+                      project={project}
+                      reduceMotion={!!reduceMotion}
+                    />
                   ))}
                 </div>
               </motion.div>

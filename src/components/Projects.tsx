@@ -19,7 +19,7 @@ const projects: Project[] = [
     live: "https://hospital-system-front-production.up.railway.app",
     schema:
       "https://dbdiagram.io/d/hospital-management-system-6940fa08e877c63074fb1b3e",
-    github: "https://github.com/Harshboghra/portfolio",
+    github: "https://github.com/Harshboghra/hospital-system-back",
     icon: "🏥",
     gradient: "from-blue-400 via-purple-500 to-pink-500",
   },

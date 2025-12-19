@@ -7,26 +7,26 @@ const socialLinks = [
     name: "Email",
     icon: Mail,
     href: "mailto:harshboghara25@gmail.com",
-    color: "from-blue-400 via-cyan-500 to-teal-600"
+    color: "from-blue-400 via-cyan-500 to-teal-600",
   },
   {
-    name: "GitHub", 
+    name: "GitHub",
     icon: Github,
     href: "https://github.com/Harshboghra",
-    color: "from-gray-400 via-slate-500 to-zinc-600"
+    color: "from-gray-400 via-slate-500 to-zinc-600",
   },
   {
     name: "LinkedIn",
     icon: Linkedin,
-    href: "https://www.linkedin.com/in/harsh-boghara-81263a228",
-    color: "from-blue-400 via-indigo-500 to-purple-600"
+    href: "https://in.linkedin.com/in/harsh-boghara-81263a228",
+    color: "from-blue-400 via-indigo-500 to-purple-600",
   },
   {
     name: "Location",
     icon: MapPin,
     href: null,
-    color: "from-green-400 via-emerald-500 to-teal-600"
-  }
+    color: "from-green-400 via-emerald-500 to-teal-600",
+  },
 ];
 
 function SocialIcon({ link, index, reduceMotion }: { link: typeof socialLinks[0]; index: number; reduceMotion: boolean }) {
@@ -36,7 +36,7 @@ function SocialIcon({ link, index, reduceMotion }: { link: typeof socialLinks[0]
         initial={reduceMotion ? false : { opacity: 0, y: 20, scale: 0.8 }}
         whileInView={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-        whileHover={reduceMotion ? undefined : { y: -5, scale: 1.05 }}
+        whileHover={reduceMotion ? undefined : { y: -2, scale: 1.02 }}
         className="relative overflow-hidden rounded-2xl border border-white/15 bg-white/10 backdrop-blur-xl shadow-[0_20px_60px_rgba(0,0,0,0.25)]"
       >
         <div className={`absolute -inset-0.5 opacity-30 blur-2xl bg-gradient-to-r ${link.color}`} />
@@ -46,7 +46,7 @@ function SocialIcon({ link, index, reduceMotion }: { link: typeof socialLinks[0]
             initial={reduceMotion ? false : { scale: 0, rotate: -180 }}
             whileInView={reduceMotion ? undefined : { scale: 1, rotate: 0 }}
             transition={{ delay: index * 0.1 + 0.3, type: "spring", stiffness: 200 }}
-            whileHover={reduceMotion ? undefined : { rotate: 360, scale: 1.1 }}
+            whileHover={reduceMotion ? undefined : { rotate: 180, scale: 1.05 }}
             className={`w-12 h-12 bg-gradient-to-r ${link.color} rounded-xl flex items-center justify-center shadow-lg`}
           >
             <link.icon className="w-6 h-6 text-white" />
@@ -90,8 +90,8 @@ function SocialIcon({ link, index, reduceMotion }: { link: typeof socialLinks[0]
       initial={reduceMotion ? false : { opacity: 0, y: 30, scale: 0.95 }}
       whileInView={reduceMotion ? undefined : { opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.8, delay: index * 0.15, ease: "easeOut" }}
-      whileHover={reduceMotion ? undefined : { y: -8, scale: 1.05 }}
-      whileTap={reduceMotion ? undefined : { scale: 0.98 }}
+      whileHover={reduceMotion ? undefined : { y: -3, scale: 1.02 }}
+      whileTap={reduceMotion ? undefined : { scale: 0.99 }}
       className="block h-full focus:outline-none focus-visible:ring-2 focus-visible:ring-purple-300/60 focus-visible:ring-offset-2 focus-visible:ring-offset-transparent"
     >
       <div className={`absolute -inset-0.5 opacity-30 blur-2xl bg-gradient-to-r ${link.color}`} />
